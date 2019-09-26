@@ -6,6 +6,7 @@ using SharpRepository.Repository;
 using SharpRepository.Repository.Caching;
 using SharpRepository.Repository.FetchStrategies;
 using System.Reflection;
+using SharpRepository.Repository.Helpers;
 
 namespace SharpRepository.CacheRepository
 {
@@ -72,11 +73,15 @@ namespace SharpRepository.CacheRepository
 
             foreach (var keyValuePair in list)
             {
-                var newItem = new T();
-                foreach (var propInfo in properties)
-                {
-                    propInfo.SetValue(newItem, propInfo.GetValue(keyValuePair.Value, null), null);
-                }
+                //var newItem = new T();
+                //foreach (var propInfo in properties)
+                //{
+                //    // Don't try and set a value to a property w/o a setter
+                //    if (propInfo.CanWrite)
+                //        propInfo.SetValue(newItem, propInfo.GetValue(keyValuePair.Value, null), null);
+                //}
+                //use new deep clone by lambda compiler to improved performance most.
+                var newItem = keyValuePair.Value.DeepClone();
 
                 clonedList.Add(newItem);
             }

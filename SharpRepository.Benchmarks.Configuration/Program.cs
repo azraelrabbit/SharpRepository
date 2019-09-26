@@ -16,7 +16,7 @@ namespace SharpRepository.Benchmarks.Configuration
 {
     class BenchmarkItem
     {
-        public Action Test { get; set; }
+        public Action<int> Test { get; set; }
         public string Title { get; set; }
         public int Order { get; set; }
     }
@@ -36,17 +36,29 @@ namespace SharpRepository.Benchmarks.Configuration
                                         Order = 1
                                     },
                                 new BenchmarkItem()
+                                {
+                                    Title = "Test Adding Item[UserRepository : InMemoryRepository<User,int>]",
+                                    Test = Benchmarks.AddNewItem,
+                                    Order = 2
+                                },
+                                new BenchmarkItem()
+                                {
+                                    Title = "Test Adding Item[UserRepository : InMemoryRepository<User,int>]",
+                                    Test = Benchmarks.FindItem,
+                                    Order = 7
+                                },
+                                new BenchmarkItem()
                                     {
                                         Title = "Custom repo hardcoded: [UserRepository : InMemoryRepository<User,int>]",
                                         Test = Benchmarks.CustomRepositoryHardCoded,
-                                        Order = 2
-                                    },
-                                new BenchmarkItem()
-                                    {
-                                        Title = "From config file: [RepositoryFactory.GetInstance<User, int>()]",
-                                        Test = Benchmarks.CreateFromConfigFile,
                                         Order = 3
                                     },
+                                //new BenchmarkItem()
+                                //    {
+                                //        Title = "From config file: [RepositoryFactory.GetInstance<User, int>()]",
+                                //        Test = Benchmarks.CreateFromConfigFile,
+                                //        Order = 3
+                                //    },
                                 new BenchmarkItem()
                                     {
                                         Title = "From config obj: [RepositoryFactory.GetInstance<User, int>(config)]",
@@ -67,11 +79,19 @@ namespace SharpRepository.Benchmarks.Configuration
                                     }
                             };
 
+
+            Benchmarks.resp=new InMemoryRepository<User, int>();
+
             // run thru each of them once because otherwise the first loop is slower for some reason
             foreach (var item in tests)
             {
-                item.Test();
+                 
+                    item.Test(0);
+               
+             
             }
+
+            
 
             Console.WriteLine("Running each test {0:#,0} times", Max);
             Console.WriteLine("----------------------------------------------------");
@@ -87,7 +107,8 @@ namespace SharpRepository.Benchmarks.Configuration
 
                 for (var i = 0; i < Max; i++)
                 {
-                    benchmarkItem.Test();
+
+                    benchmarkItem.Test(i);
                 }
                 sw.Stop();
                 Console.WriteLine("   {0} ms total -- {1} avg ms per\n", sw.Elapsed.TotalMilliseconds, sw.Elapsed.TotalMilliseconds / Convert.ToDouble(Max));
@@ -131,13 +152,32 @@ namespace SharpRepository.Benchmarks.Configuration
         }
 
         [MethodImpl(MethodImplOptions.NoInlining)]
-        public static void DirectCreation()
+        public static void DirectCreation(int order)
         {
             new InMemoryRepository<User, int>();
         }
 
+        public static InMemoryRepository<User,int> resp =null;
+
+        public static void AddNewItem(int order)
+        {
+            
+            resp.Add(new User(){Email = "aa@a.com",FullName = "aabbcc",UserId = order});
+        }
+
+        public static void FindItem(int order)
+        {
+            var st = Stopwatch.StartNew();
+            var ret = resp.Find(p => p.UserId == order);
+
+            st.Stop();
+
+            var tt = st.ElapsedMilliseconds;
+        }
+
+
         [MethodImpl(MethodImplOptions.NoInlining)]
-        public static void CreateFromConfigFile()
+        public static void CreateFromConfigFile(int order)
         {
             var config = new ConfigurationBuilder()
                .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
@@ -157,7 +197,7 @@ namespace SharpRepository.Benchmarks.Configuration
         }
 
         [MethodImpl(MethodImplOptions.NoInlining)]
-        public static void CustomRepositoryFromConfig()
+        public static void CustomRepositoryFromConfig(int order)
         {
             
             var config = new SharpRepositoryConfiguration();
@@ -171,19 +211,19 @@ namespace SharpRepository.Benchmarks.Configuration
         }
 
         [MethodImpl(MethodImplOptions.NoInlining)]
-        public static void CustomRepositoryHardCoded()
+        public static void CustomRepositoryHardCoded(int order)
         {
             new UserRepository();
         }
 
         [MethodImpl(MethodImplOptions.NoInlining)]
-        public void DirectFromStructureMap()
+        public void DirectFromStructureMap(int order)
         {
             StructureMapContainer.GetInstance<IRepository<User, int>>();
         }
 
         [MethodImpl(MethodImplOptions.NoInlining)]
-        public static void CreateFromConfigObject()
+        public static void CreateFromConfigObject(int order)
         {
             var config = new SharpRepositoryConfiguration();
             config.AddRepository(new InMemoryRepositoryConfiguration("default"));

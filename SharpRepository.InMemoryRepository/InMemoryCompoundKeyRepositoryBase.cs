@@ -6,6 +6,7 @@ using SharpRepository.Repository;
 using SharpRepository.Repository.Caching;
 using SharpRepository.Repository.FetchStrategies;
 using System.Reflection;
+using SharpRepository.Repository.Helpers;
 
 namespace SharpRepository.InMemoryRepository
 {
@@ -36,18 +37,22 @@ namespace SharpRepository.InMemoryRepository
             // when you Google deep copy of generic list every answer uses either the IClonable interface on the T or having the T be Serializable
             //  since we can't really put those constraints on T I'm going to do it via reflection
 
-            var type = typeof(T);
-            var properties = type.GetProperties();
+            //var type = typeof(T);
+            //var properties = type.GetProperties();
 
             var clonedList = new List<T>(list.Count);
 
             foreach (var keyValuePair in list)
             {
-                var newItem = new T();
-                foreach (var propInfo in properties)
-                {
-                    propInfo.SetValue(newItem, propInfo.GetValue(keyValuePair.Value, null), null);
-                }
+                //var newItem = new T();
+                //foreach (var propInfo in properties)
+                //{
+                //    // Don't try and set a value to a property w/o a setter
+                //    if (propInfo.CanWrite)
+                //        propInfo.SetValue(newItem, propInfo.GetValue(keyValuePair.Value, null), null);
+                //}
+                //use new deep clone by lambda compiler to improved performance most.
+                var newItem = keyValuePair.Value.DeepClone();
 
                 clonedList.Add(newItem);
             }
@@ -160,18 +165,22 @@ namespace SharpRepository.InMemoryRepository
             // when you Google deep copy of generic list every answer uses either the IClonable interface on the T or having the T be Serializable
             //  since we can't really put those constraints on T I'm going to do it via reflection
 
-            var type = typeof (T);
-            var properties = type.GetProperties();
+            //var type = typeof (T);
+            //var properties = type.GetProperties();
 
             var clonedList = new List<T>(list.Count);
 
             foreach (var keyValuePair in list)
             {
-                var newItem = new T();
-                foreach (var propInfo in properties)
-                {
-                    propInfo.SetValue(newItem, propInfo.GetValue(keyValuePair.Value, null), null);
-                }
+                //var newItem = new T();
+                //foreach (var propInfo in properties)
+                //{
+                //    // Don't try and set a value to a property w/o a setter
+                //    if (propInfo.CanWrite)
+                //        propInfo.SetValue(newItem, propInfo.GetValue(keyValuePair.Value, null), null);
+                //}
+                //use new deep clone by lambda compiler to improved performance most.
+                var newItem = keyValuePair.Value.DeepClone();
 
                 clonedList.Add(newItem);
             }
@@ -279,18 +288,22 @@ namespace SharpRepository.InMemoryRepository
             // when you Google deep copy of generic list every answer uses either the IClonable interface on the T or having the T be Serializable
             //  since we can't really put those constraints on T I'm going to do it via reflection
 
-            var type = typeof (T);
-            var properties = type.GetProperties();
+            //var type = typeof (T);
+            //var properties = type.GetProperties();
 
             var clonedList = new List<T>(list.Count);
 
             foreach (var keyValuePair in list)
             {
-                var newItem = new T();
-                foreach (var propInfo in properties)
-                {
-                    propInfo.SetValue(newItem, propInfo.GetValue(keyValuePair.Value, null), null);
-                }
+                //var newItem = new T();
+                //foreach (var propInfo in properties)
+                //{
+                //    // Don't try and set a value to a property w/o a setter
+                //    if (propInfo.CanWrite)
+                //        propInfo.SetValue(newItem, propInfo.GetValue(keyValuePair.Value, null), null);
+                //}
+                //use new deep clone by lambda compiler to improved performance most.
+                var newItem = keyValuePair.Value.DeepClone();
 
                 clonedList.Add(newItem);
             }
