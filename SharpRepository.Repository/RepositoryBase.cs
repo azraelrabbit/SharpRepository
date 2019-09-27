@@ -1706,5 +1706,7 @@ namespace SharpRepository.Repository
         {
             RunAspect(aspect => aspect.OnError(new RepositoryActionContext<T, TKey>(this), ex));
         }
+
+        public bool Initialized { get; set; }
     }
 }

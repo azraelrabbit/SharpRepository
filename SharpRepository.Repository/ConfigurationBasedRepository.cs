@@ -840,5 +840,7 @@ namespace SharpRepository.Repository
         {
             return Repository.GroupLongCount(predicate, selector);
         }
+
+        public bool Initialized { get; set; }
     }
 }

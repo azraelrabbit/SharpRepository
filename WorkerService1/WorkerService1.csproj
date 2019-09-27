@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk.Worker">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <UserSecretsId>dotnet-WorkerService1-E726E617-14BC-49F4-9A0C-8AC78B401BDD</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Dapper.LambdaExtension.Standard" Version="1.7.19" />
+    <PackageReference Include="EPPlus.OrmExtension.Standard" Version="1.0.13" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="3.0.0" />
+    <PackageReference Include="MySql.Data" Version="8.0.17" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SharpRepository.InMemoryRepository\SharpRepository.InMemoryRepository.csproj" />
+    <ProjectReference Include="..\SharpRepository.Ioc.Microsoft.DependencyInjection\SharpRepository.Ioc.Microsoft.DependencyInjection.csproj" />
+    <ProjectReference Include="..\SharpRepository.Repository\SharpRepository.Repository.csproj" />
+  </ItemGroup>
+</Project>

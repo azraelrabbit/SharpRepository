@@ -8,6 +8,7 @@ namespace SharpRepository.Repository
     /// <typeparam name="TKey">The type of the primary key.</typeparam>
     public interface IRepository<T, TKey> : ICrudRepository<T, TKey>, IRepositoryQueryable<T>, IRepositoryAggregates<T> where T : class
     {
+        bool Initialized { get; set; } 
         
     }
 
@@ -17,5 +18,6 @@ namespace SharpRepository.Repository
     /// <typeparam name="T"></typeparam>
     public interface IRepository<T> : IRepository<T, int> where T : class
     {
+        
     }
 }
