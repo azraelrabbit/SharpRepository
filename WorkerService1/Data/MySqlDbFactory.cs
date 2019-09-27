@@ -10,7 +10,8 @@ namespace ZPExam.logic.Common
  
         public MySqlDbFactory()
         {
-            ConnectionString = "server=192.168.10.25;port=3306;database=zpexam_201903;uid=root;pwd=ZeroPlus2013;";
+            //todo make sure type in the pwd before run this sample
+            ConnectionString = "server=192.168.10.25;port=3306;database=zpexam_201903;uid=root;pwd=;";
   
         }
  
