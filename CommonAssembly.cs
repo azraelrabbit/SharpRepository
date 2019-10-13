@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 
 [assembly: AssemblyCompany("SharpRepository")]
 [assembly: AssemblyProduct("SharpRepository")]
-[assembly: AssemblyCopyright("Copyright © SharpRepository 2013")]
+[assembly: AssemblyCopyright("Copyright ?SharpRepository 2013")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

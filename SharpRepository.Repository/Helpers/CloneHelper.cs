@@ -19,6 +19,28 @@ namespace SharpRepository.Repository.Helpers
         {
             return Helpers.DeepClone<T, T>.Trans(item);
         }
+
+        public static List<T> DeepClone<T>(this List<T> items)
+        {
+            var clonedList = new List<T>(items.Count);
+
+            foreach (var item in items)
+            {
+                //var newItem = new T();
+                //foreach (var propInfo in properties)
+                //{
+                //    // Don't try and set a value to a property w/o a setter
+                //    if (propInfo.CanWrite)
+                //        propInfo.SetValue(newItem, propInfo.GetValue(keyValuePair.Value, null), null);
+                //}
+                //use new deep clone by lambda compiler to improved performance most.
+                var newItem = item.DeepClone();
+
+                clonedList.Add(newItem);
+            } 
+
+            return clonedList;
+        }
     }
 
     public static class DeepClone<TIn, TOut>

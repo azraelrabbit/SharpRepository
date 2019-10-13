@@ -35,6 +35,8 @@ namespace WorkerService1
 
                     var alluser = _userRepo.GetAll().Count();
 
+                    var all = _userRepo.FindAll(p => true);
+
                     st.Stop();
 
                     _logger.LogInformation("user total is: {ucount}, time elscaped: {stt} ms",alluser,st.ElapsedMilliseconds);

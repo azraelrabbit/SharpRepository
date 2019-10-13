@@ -18,6 +18,7 @@ namespace ZPExam.logic.Model
     {
         [ZPKey]
         [EPIgnore]
+        
         public string Id { get; set; }
 
         /// <summary>

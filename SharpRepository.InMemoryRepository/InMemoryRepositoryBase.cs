@@ -10,6 +10,8 @@ using SharpRepository.Repository.Caching;
 using SharpRepository.Repository.FetchStrategies;
 using System.Reflection;
 using SharpRepository.Repository.Helpers;
+using SharpRepository.Repository.Queries;
+using SharpRepository.Repository.Specifications;
 
 namespace SharpRepository.InMemoryRepository
 {
@@ -24,7 +26,9 @@ namespace SharpRepository.InMemoryRepository
 
         protected override IQueryable<T> BaseQuery(IFetchStrategy<T> fetchStrategy = null)
         {
-            return CloneDictionary(_items).AsQueryable();
+            //return CloneDictionary(_items).AsQueryable();
+
+            return _items.Values.AsQueryable();
         }
         
         protected override T GetQuery(TKey key, IFetchStrategy<T> fetchStrategy)
@@ -141,7 +145,7 @@ namespace SharpRepository.InMemoryRepository
         }
 
 
-      
+        
     }
 
 
