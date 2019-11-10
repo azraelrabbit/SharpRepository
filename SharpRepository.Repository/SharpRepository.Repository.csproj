@@ -7,7 +7,8 @@
 	  <PackageId>AZ.SharpRepository.Repository</PackageId>
     <PackageVersion>2.0.4.6</PackageVersion>
 	  <PackageReleaseNotes>2.0.4: GetMany accepts specifications, bug #204, #207 and #223 correction, package updates 
-2.0.4.6: improve deepclone object performance,from reflection change to compiled expression method.</PackageReleaseNotes>
+2.0.4.6: improve deepclone object performance,from reflection change to compiled expression method.
+2.0.4.9: improve batch action aspect logic.</PackageReleaseNotes>
 	  <PackageTags>SharpRepository Repository</PackageTags>
 	  <PackageIconUrl>https://user-images.githubusercontent.com/6349515/28491142-7b6350c4-6eeb-11e7-9c5b-e3b8ef1e73b8.png</PackageIconUrl>
 	  <PackageProjectUrl>https://github.com/azraelrabbit/SharpRepository</PackageProjectUrl>
@@ -15,7 +16,9 @@
 	  <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <RepositoryUrl>https://github.com/azraelrabbit/SharpRepository.git</RepositoryUrl>
 	  <RepositoryType>git</RepositoryType>
-	  <Version>2.0.4.8</Version>
+	  <Version>2.0.4.9</Version>
+	  <AssemblyVersion>2.0.4.9</AssemblyVersion>
+	  <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
   <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
     <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="2.1.2" />

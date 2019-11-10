@@ -72,9 +72,12 @@ namespace SharpRepository.InMemoryRepository
                 id = GeneratePrimaryKey();
                 SetPrimaryKey(entity, id);
             }
-
+ 
             _items[id] = entity;
+            
         }
+
+ 
 
         protected override void DeleteItem(T entity)
         {

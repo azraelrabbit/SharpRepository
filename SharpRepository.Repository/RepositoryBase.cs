@@ -1330,14 +1330,15 @@ namespace SharpRepository.Repository
         // used from the Add method above and the Save below for the batch save
         private void ProcessAdd(T entity, bool batchMode)
         {
-            if (!RunAspect(attribute => attribute.OnAddExecuting(entity, _repositoryActionContext)))
-                return;
+            if(!batchMode)
+                if (!RunAspect(attribute => attribute.OnAddExecuting(entity, _repositoryActionContext)))
+                    return;
 
             AddItem(entity);
 
-            RunAspect(attribute => attribute.OnAddExecuted(entity, _repositoryActionContext));
-
-            if (batchMode) return;
+            if(!batchMode)
+                RunAspect(attribute => attribute.OnAddExecuted(entity, _repositoryActionContext));
+ 
 
             Save();
 
@@ -1350,11 +1351,14 @@ namespace SharpRepository.Repository
                 QueryManager.OnItemAdded(key, entity);
         }
 
-        public void Add(IEnumerable<T> entities)
+        public  virtual void Add(IEnumerable<T> entities)
         {
             try
             {
                 if (entities == null) throw new ArgumentNullException("entities");
+
+                if (!RunAspect(attribute => attribute.OnAddExecuting(entities, _repositoryActionContext)))
+                    return;
 
                 using (var batch = BeginBatch())
                 {
@@ -1365,12 +1369,16 @@ namespace SharpRepository.Repository
 
                     batch.Commit();
                 }
+
+
             }
             catch (Exception ex)
             {
                 Error(ex);
                 throw;
             }
+
+            RunAspect(attribute => attribute.OnAddExecuted(entities, _repositoryActionContext));
         }
 
         // This is the actual implementation that the derived class needs to implement
@@ -1394,12 +1402,14 @@ namespace SharpRepository.Repository
         // used from the Delete method above and the Save below for the batch save
         private void ProcessDelete(T entity, bool batchMode)
         {
-            if (!RunAspect(attribute => attribute.OnDeleteExecuting(entity, _repositoryActionContext)))
-                return;
+            if(!batchMode)
+                if (!RunAspect(attribute => attribute.OnDeleteExecuting(entity, _repositoryActionContext)))
+                    return;
 
             DeleteItem(entity);
 
-            RunAspect(attribute => attribute.OnDeleteExecuted(entity, _repositoryActionContext));
+            if(!batchMode)
+                RunAspect(attribute => attribute.OnDeleteExecuted(entity, _repositoryActionContext));
 
             if (batchMode) return;
 
@@ -1416,10 +1426,40 @@ namespace SharpRepository.Repository
 
         public void Delete(IEnumerable<T> entities)
         {
-            foreach (var entity in entities)
+            //if (!RunAspect(attribute => attribute.OnDeleteExecuting(entities, _repositoryActionContext)))
+            //    return;
+
+            //foreach (var entity in entities)
+            //{
+            //    Delete(entity);
+            //}
+
+            try
             {
-                Delete(entity);
+                if (entities == null) throw new ArgumentNullException("entities");
+
+                if (!RunAspect(attribute => attribute.OnDeleteExecuting(entities, _repositoryActionContext)))
+                    return;
+
+                using (var batch = BeginBatch())
+                {
+                    foreach (var entity in entities)
+                    {
+                        batch.Delete(entity);
+                    }
+
+                    batch.Commit();
+                }
+
+
             }
+            catch (Exception ex)
+            {
+                Error(ex);
+                throw;
+            }
+
+            RunAspect(attribute => attribute.OnDeleteExecuted(entities, _repositoryActionContext));
         }
 
         public void Delete(IEnumerable<TKey> keys)
@@ -1429,27 +1469,31 @@ namespace SharpRepository.Repository
 
         public void Delete(params TKey[] keys)
         {
-            try
-            {
-                using (var batch = BeginBatch())
-                {
-                    foreach (var key in keys)
-                    {
-                        var entity = Get(key);
+            //try
+            //{
+            //    using (var batch = BeginBatch())
+            //    {
+            //        foreach (var key in keys)
+            //        {
+            //            var entity = Get(key);
 
-                        if (entity == null) throw new ArgumentException("No entity exists with this key.", "key");
+            //            if (entity == null) throw new ArgumentException("No entity exists with this key.", "key");
 
-                        batch.Delete(entity);
-                    }
+            //            batch.Delete(entity);
+            //        }
 
-                    batch.Commit();
-                }
-            }
-            catch (Exception ex)
-            {
-                Error(ex);
-                throw;
-            }
+            //        batch.Commit();
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    Error(ex);
+            //    throw;
+            //}
+
+            var entities = keys.Select(v => (Get(v)));
+
+            Delete(entities);
         }
 
         public void Delete(TKey key)
@@ -1500,12 +1544,14 @@ namespace SharpRepository.Repository
         // used from the Update method above and the Save below for the batch save
         private void ProcessUpdate(T entity, bool batchMode)
         {
-            if (!RunAspect(attribute => attribute.OnUpdateExecuting(entity, _repositoryActionContext)))
-                return;
+            if(!batchMode)
+                if (!RunAspect(attribute => attribute.OnUpdateExecuting(entity, _repositoryActionContext)))
+                    return;
 
             UpdateItem(entity);
 
-            RunAspect(attribute => attribute.OnUpdateExecuted(entity, _repositoryActionContext));
+            if(!batchMode)
+                 RunAspect(attribute => attribute.OnUpdateExecuted(entity, _repositoryActionContext));
 
             if (batchMode) return;
 
@@ -1520,11 +1566,14 @@ namespace SharpRepository.Repository
                 QueryManager.OnItemUpdated(key, entity);
         }
 
-        public void Update(IEnumerable<T> entities)
+        public virtual void Update(IEnumerable<T> entities)
         {
             try
             {
                 if (entities == null) throw new ArgumentNullException("entities");
+
+                if (!RunAspect(attribute => attribute.OnUpdateExecuting(entities, _repositoryActionContext)))
+                    return;
 
                 using (var batch = BeginBatch())
                 {
@@ -1541,6 +1590,8 @@ namespace SharpRepository.Repository
                 Error(ex);
                 throw;
             }
+
+            RunAspect(attribute => attribute.OnUpdateExecuted(entities, _repositoryActionContext));
         }
 
         protected abstract void SaveChanges();

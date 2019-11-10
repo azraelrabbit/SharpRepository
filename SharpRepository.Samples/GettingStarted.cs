@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using NUnit.Framework;
 using SharpRepository.Repository;
 using Shouldly;
@@ -50,6 +51,11 @@ namespace SharpRepository.Samples
             // Create 
             var create = new Order { Name = "Big sale" };
             repo.Add(create);
+
+
+            var list=new List<Order>();
+
+            repo.Add(list);
 
             const int expectedOrderId = 1;
             create.OrderId.ShouldBe(expectedOrderId);

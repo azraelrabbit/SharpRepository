@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace SharpRepository.Repository.Aspects
 {
@@ -27,7 +28,16 @@ namespace SharpRepository.Repository.Aspects
             return true;
         }
 
+        public virtual bool OnAddExecuting<T, TKey>(IEnumerable<T> entitysList, RepositoryActionContext<T, TKey> context) where T : class
+        {
+            return true;
+        }
+
         public virtual void OnAddExecuted<T, TKey>(T entity, RepositoryActionContext<T, TKey> context) where T : class
+        {
+        }
+
+        public virtual void OnAddExecuted<T, TKey>(IEnumerable<T> entitysList, RepositoryActionContext<T, TKey> context) where T : class
         {
         }
 
@@ -40,12 +50,31 @@ namespace SharpRepository.Repository.Aspects
         {
         }
 
+        public virtual bool OnUpdateExecuting<T, TKey>(IEnumerable<T> entitysList, RepositoryActionContext<T, TKey> context) where T : class
+        {
+            return true;
+        }
+
+        public virtual void OnUpdateExecuted<T, TKey>(IEnumerable<T> entitysList, RepositoryActionContext<T, TKey> context) where T : class
+        {
+        }
+
         public virtual bool OnDeleteExecuting<T, TKey>(T entity, RepositoryActionContext<T, TKey> context) where T : class
         {
             return true;
         }
 
         public virtual void OnDeleteExecuted<T, TKey>(T entity, RepositoryActionContext<T, TKey> context) where T : class
+        {
+        }
+
+
+        public virtual bool OnDeleteExecuting<T, TKey>(IEnumerable<T> entitysList, RepositoryActionContext<T, TKey> context) where T : class
+        {
+            return true;
+        }
+
+        public virtual void OnDeleteExecuted<T, TKey>(IEnumerable<T> entitysList, RepositoryActionContext<T, TKey> context) where T : class
         {
         }
 

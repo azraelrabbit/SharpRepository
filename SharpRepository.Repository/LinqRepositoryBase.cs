@@ -108,6 +108,8 @@ namespace SharpRepository.Repository
             return query;
         }
 
+        
+
         protected override IQueryable<T> FindAllQuery(ISpecification<T> criteria, IQueryOptions<T> queryOptions)
         {
             if (queryOptions == null)

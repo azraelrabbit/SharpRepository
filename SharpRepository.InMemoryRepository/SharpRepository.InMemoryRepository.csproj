@@ -14,8 +14,9 @@
 	  <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <RepositoryUrl>https://github.com/azraelrabbit/SharpRepository.git</RepositoryUrl>
 	  <RepositoryType>git</RepositoryType>
-	  <Version>2.0.4.8</Version>
-	  <AssemblyVersion>2.0.4.8</AssemblyVersion>
+	  <Version>2.0.4.9</Version>
+	  <AssemblyVersion>2.0.4.9</AssemblyVersion>
+	  <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
   <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
     <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="2.1.2" />
@@ -30,7 +31,7 @@
     <PackageReference Include="System.Security.Cryptography.Algorithms" Version="4.3.1" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="AZ.SharpRepository.Repository" Version="2.0.4.8" />
+    <PackageReference Include="AZ.SharpRepository.Repository" Version="2.0.4.9" />
     <PackageReference Include="System.Linq.Queryable" Version="4.3.0" />
   </ItemGroup>
   <ItemGroup>
