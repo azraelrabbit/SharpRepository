@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
-VisualStudioVersion = 16.0.29319.158
+VisualStudioVersion = 16.0.29409.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharpRepository.RavenDbRepository", "SharpRepository.RavenDbRepository\SharpRepository.RavenDbRepository.csproj", "{0D7303B9-3A89-4932-B0F0-73B0C1C0FAED}"
 EndProject
@@ -27,7 +27,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{9DEA
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E6212FD3-A742-4D07-A4BD-EF536CAE4EE6}"
 	ProjectSection(SolutionItems) = preProject
-		CommonAssembly.cs = CommonAssembly.cs
 		license.txt = license.txt
 		README.md = README.md
 	EndProjectSection
@@ -91,6 +90,7 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharpRepository.Ioc.Unity", "SharpRepository.Ioc.Unity\SharpRepository.Ioc.Unity.csproj", "{0D54925A-CDAB-44FF-BEC1-75CCE4B1B804}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleRepo", "SampleRepo\SampleRepo.csproj", "{AB7AC47A-78A1-4CCB-83E6-BF46C2C8F9C0}"
+EndProjectProject("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleRepo", "SampleRepo\SampleRepo.csproj", "{AB7AC47A-78A1-4CCB-83E6-BF46C2C8F9C0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkerService1", "WorkerService1\WorkerService1.csproj", "{74F1046D-BE7C-4A31-B668-5DF1297DDD2A}"
 EndProject
@@ -393,7 +393,7 @@ Global
 		{74F1046D-BE7C-4A31-B668-5DF1297DDD2A} = {9DEAA991-4B0E-4C9C-85AE-6FF398D34401}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {819CFA5F-D8EF-4CB4-80CC-954C136BA9B6}
+		SolutionGuid = {5ABFC63A-82B1-422C-97A0-0A76CA4B73A8}
 		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.2\lib\NET35
 	EndGlobalSection
 EndGlobal
